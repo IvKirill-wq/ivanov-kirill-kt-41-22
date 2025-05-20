@@ -1,6 +1,8 @@
+using IvanovKirillKt_41_22.Databse;
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
-
+//Update-Database -Connection "Server=WIN-D8SEI637765;Database=IvanovDB;Trusted_Connection=True;TrustServerCertificate=True;"
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,9 @@ try
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    builder.Services.AddDbContext<IvanovDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     var app = builder.Build();
 
